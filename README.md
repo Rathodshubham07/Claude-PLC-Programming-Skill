@@ -1,81 +1,91 @@
 # Claude PLC Programming Skill
 
-A vendor-aware PLC programming engineering skill for Claude and other AI assistants.
+A disciplined PLC engineering skill for Claude, focused on vendor-aware control logic, code generation, code review, troubleshooting, and validation.
 
-## Purpose
+## Scope
 
-This project teaches an AI assistant to work like a disciplined industrial automation engineer: understand the control requirement, identify the PLC platform, design the sequence and interfaces, generate appropriate PLC logic, review it for faults and edge cases, and provide validation tests.
+- IEC 61131-3 programming concepts
+- Ladder Diagram, Structured Text, Function Block Diagram, SFC
+- PLC scan-cycle and execution reasoning
+- Equipment sequencing and state machines
+- Manual / Auto / Semi-Auto / Simulation modes
+- Permissives, interlocks, alarms and fault management
+- Timers, counters, edge detection and analog scaling
+- PLC code review and troubleshooting
+- Test-case and validation design
 
-## Core capabilities
+## Vendor-aware by design
 
-- PLC architecture and scan-cycle reasoning
-- IEC 61131-3 concepts
-- Ladder Diagram (LD)
-- Structured Text (ST)
-- Function Block Diagram (FBD)
-- Sequential Function Chart (SFC)
-- State-machine design
-- Motor, pump, valve and conveyor control
-- Auto/manual/semi-auto/simulation modes
-- Permissives and interlocks
-- Alarm and fault management
-- Timers, counters and edge detection
-- Analog scaling and instrumentation
-- Sequence control
-- Code review and troubleshooting
-- HMI/SCADA interface considerations
-- Simulation and test-case design
+The skill does not assume that similar PLC platforms behave identically.
 
-## Vendor-aware design
+Before producing vendor-specific code, it requires the target platform to be identified, including the PLC family, CPU, engineering software/version and programming language where relevant.
 
-The skill is intentionally structured so generic IEC principles are separated from vendor-specific behavior. The assistant must identify the target PLC, engineering software and version before producing vendor-specific code.
+Initial vendor targets:
 
-Initial vendor areas:
-
-- Siemens TIA Portal / S7
-- Rockwell Automation Studio 5000 / Logix
-- Mitsubishi GX Works
-- Schneider EcoStruxure / Modicon
+- Siemens / TIA Portal
+- Rockwell Automation / Studio 5000
+- Mitsubishi / GX Works
+- Schneider Electric / EcoStruxure
 - Generic IEC 61131-3
+
+Vendor-specific syntax, instructions, addressing and hardware behavior must be verified rather than guessed.
 
 ## Engineering workflow
 
 ```text
 Requirement
-    -> Platform identification
-    -> I/O definition
-    -> Operating modes
-    -> Sequence / state machine
-    -> Permissives
-    -> Interlocks
-    -> Faults / alarms
-    -> PLC implementation
-    -> Logic review
-    -> Test cases
-    -> Simulation / compilation / commissioning
+    ↓
+Platform identification
+    ↓
+I/O and data model
+    ↓
+Operating modes
+    ↓
+Sequence / state model
+    ↓
+Permissives and interlocks
+    ↓
+Faults and recovery
+    ↓
+PLC implementation
+    ↓
+Logic review
+    ↓
+Test cases
+    ↓
+Validation
 ```
 
-## Important safety notice
+## Design principles
 
-This is an engineering-assistance project. Generated PLC code is not safety-certified and must be reviewed, tested and validated by qualified automation and safety personnel before deployment on real equipment.
+1. Correctness over speed.
+2. Never invent vendor-specific behavior.
+3. Separate commands, permissives, interlocks, faults and status.
+4. Prefer explicit state models for sequential equipment.
+5. Treat PLC scan behavior as part of the logic.
+6. Make reset and recovery behavior explicit.
+7. Distinguish logical review from actual compilation, simulation and commissioning.
+8. Keep safety-rated functions separate from ordinary control logic.
 
-The skill must never invent vendor-specific instructions or claim that uncompiled code has been compile-validated.
+## Repository
 
-## Repository structure
+```text
+Claude-PLC-Programming-Skill/
+├── SKILL.md      # Master instructions
+├── README.md     # Project overview
+└── LICENSE       # MIT License
+```
 
-- `SKILL.md` — master skill instructions
-- `docs/` — engineering methodology
-- `standards/` — IEC and PLC fundamentals
-- `vendors/` — vendor-specific guidance
-- `patterns/` — reusable control patterns
-- `examples/` — reference implementations
-- `tests/` — evaluation scenarios
-- `prompts/` — task-specific prompt templates
+The repository intentionally starts small. Detailed vendor modules, examples and automated evaluation suites should be added only when they contain verified, reusable engineering material.
 
-## Status
+## Usage
 
-Version 0.1.0 — foundational PLC engineering skill.
+Use `SKILL.md` as the instruction set for Claude. For vendor-specific work, provide the exact PLC platform and version together with the engineering requirement and any existing project conventions.
+
+## Safety
+
+This project is an engineering assistant, not a safety-certified control system. Generated PLC logic must be reviewed, tested and approved by qualified personnel before deployment.
 
 ## License
 
-MIT License. See `LICENSE`.
+MIT
